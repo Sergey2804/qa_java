@@ -5,11 +5,14 @@ import com.example.Feline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
@@ -24,14 +27,25 @@ public class CatTest {
     }
 
     @Test
-    public void testGetFood() throws Exception {
+    public void testGetFoodReturnsCorrectFood() throws Exception {
         Cat cat = new Cat(feline);
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
 
-        Mockito.when(feline.eatMeat()).thenReturn(expectedFood);
+        when(feline.eatMeat()).thenReturn(expectedFood);
 
         List<String> actualFood = cat.getFood();
         assertEquals(expectedFood, actualFood);
-        Mockito.verify(feline, Mockito.times(1)).eatMeat();
+    }
+
+    @Test
+    public void testGetFoodCallsPredatorMethod() throws Exception {
+        Cat cat = new Cat(feline);
+        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
+
+        when(feline.eatMeat()).thenReturn(expectedFood);
+
+        cat.getFood();
+
+        verify(feline).eatMeat();
     }
 }

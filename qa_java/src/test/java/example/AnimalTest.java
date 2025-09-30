@@ -2,38 +2,36 @@ package example;
 
 import com.example.Animal;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(JUnit4.class)
 public class AnimalTest {
+
+    private final Animal animal = new Animal();
 
     @Test
     public void testGetFoodForHerbivore() throws Exception {
-        Animal animal = new Animal();
         List<String> expectedFood = Arrays.asList("Трава", "Различные растения");
         assertEquals(expectedFood, animal.getFood("Травоядное"));
     }
 
     @Test
     public void testGetFoodForPredator() throws Exception {
-        Animal animal = new Animal();
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
         assertEquals(expectedFood, animal.getFood("Хищник"));
     }
 
-    @Test(expected = Exception.class)
-    public void testGetFoodForUnknownAnimal() throws Exception {
-        Animal animal = new Animal();
-        animal.getFood("Неизвестный вид");
-    }
-
     @Test
-    public void testGetFoodExceptionMessage() {
-        Animal animal = new Animal();
+    public void testGetFoodForUnknownType() {
         try {
-            animal.getFood("Неизвестный вид");
-            fail("Expected exception was not thrown");
+            animal.getFood("Всеядное");
+            org.junit.Assert.fail("Expected exception");
         } catch (Exception e) {
             assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник", e.getMessage());
         }
@@ -41,7 +39,6 @@ public class AnimalTest {
 
     @Test
     public void testGetFamily() {
-        Animal animal = new Animal();
         String expected = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
         assertEquals(expected, animal.getFamily());
     }

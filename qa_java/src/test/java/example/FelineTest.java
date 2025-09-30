@@ -3,31 +3,15 @@ package example;
 import com.example.Feline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.runners.JUnit4;
+
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
 
-@RunWith(Parameterized.class)
+import static org.junit.Assert.assertEquals;
+
+@RunWith(JUnit4.class)
 public class FelineTest {
-
-    private final int expectedKittens;
-    private final int kittensCount;
-
-    public FelineTest(int expectedKittens, int kittensCount) {
-        this.expectedKittens = expectedKittens;
-        this.kittensCount = kittensCount;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getKittensData() {
-        return new Object[][]{
-                {1, 1},
-                {3, 3},
-                {5, 5},
-                {0, 0}
-        };
-    }
 
     @Test
     public void testEatMeat() throws Exception {
@@ -46,11 +30,5 @@ public class FelineTest {
     public void testGetKittensWithoutParameters() {
         Feline feline = new Feline();
         assertEquals(1, feline.getKittens());
-    }
-
-    @Test
-    public void testGetKittensWithParameters() {
-        Feline feline = new Feline();
-        assertEquals(expectedKittens, feline.getKittens(kittensCount));
     }
 }

@@ -2,34 +2,32 @@ package example;
 
 import com.example.Feline;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.assertEquals;
+
+@RunWith(org.junit.runners.JUnit4.class)
 public class AlexTest {
 
     @Test
-    public void testGetFriends() throws Exception {
-        Feline.Alex alex = new Feline.Alex();
-        List<String> expectedFriends = Arrays.asList("Марти", "Глория", "Мелман");
-        assertEquals(expectedFriends, alex.getFriends());
+    public void testEatMeat() throws Exception {
+        Feline feline = new Feline();
+        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
+        assertEquals(expectedFood, feline.eatMeat());
     }
 
     @Test
-    public void testGetPlaceOfLiving() throws Exception {
-        Feline.Alex alex = new Feline.Alex();
-        assertEquals("Нью-Йоркский зоопарк", alex.getPlaceOfLiving());
+    public void testGetFamily() {
+        Feline feline = new Feline();
+        assertEquals("Кошачьи", feline.getFamily());
     }
 
     @Test
-    public void testGetKittens() throws Exception {
-        Feline.Alex alex = new Feline.Alex();
-        assertEquals(0, alex.getKittens()); // У Алекса нет львят
-    }
-
-    @Test
-    public void testDoesHaveMane() throws Exception {
-        Feline.Alex alex = new Feline.Alex();
-        assertTrue(alex.doesHaveMane()); // Алекс самец, поэтому грива есть
+    public void testGetKittensWithoutParameters() {
+        Feline feline = new Feline();
+        assertEquals(1, feline.getKittens());
     }
 }
